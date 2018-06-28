@@ -9,10 +9,10 @@ import android.widget.Button;
 
 public class MainActivity extends AppCompatActivity {
 
-    Button play,pause,stop;
-    MediaPlayer myplayer;
-    int length;
+    Button play,pause,stop,resume;
+    MediaPlayer mediaplayer;
 
+    String order =null;
 
 
     @Override
@@ -23,37 +23,77 @@ public class MainActivity extends AppCompatActivity {
         play=findViewById(R.id.play);
         pause=findViewById(R.id.pause);
         stop=findViewById(R.id.stop);
+        resume=findViewById(R.id.resume);
+
+        //Intially disable the button
+
+
 
         play.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                myplayer = MediaPlayer.create(MainActivity.this,R.raw.song);
-                if(myplayer.isPlaying()){
 
-                }else{
-                    myplayer.seekTo(length);
-                    myplayer.start();
-                }
+              Intent intent=new Intent(MainActivity.this,MyService.class);
+              order="play";
+              intent.putExtra("order",order);
+              startService(intent);
+
+
+
+              play.setEnabled(false);
+              resume.setEnabled(false);
+              pause.setEnabled(true);
+              stop.setEnabled(true);
+
 
 
             }
         });
 
+         stop.setOnClickListener(new View.OnClickListener() {
+             @Override
+             public void onClick(View view) {
 
+                 stop.setEnabled(false);
+                 resume.setEnabled(false);
+
+                 pause.setEnabled(true);
+                 play.setEnabled(true);
+                stopService(new Intent(MainActivity.this,MyService.class));
+
+
+             }
+         });
           pause.setOnClickListener(new View.OnClickListener() {
               @Override
               public void onClick(View view) {
+                  Intent intent=new Intent(MainActivity.this,MyService.class);
+                  order="pause";
+                  intent.putExtra("order",order);
+                  startService(intent);
 
-                 myplayer.pause();
-                 length = myplayer.getCurrentPosition();
+                  pause.setEnabled(false);
+                  stop.setEnabled(true);
+                  play.setEnabled(false);
+                  resume.setEnabled(true);
+
+
+                  play.setEnabled(true);
               }
+
+
           });
-        stop.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                myplayer.stop();
-            }
-        });
+
+            resume.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    resume.setEnabled(false);
+                    pause.setEnabled(true);
+                    play.setEnabled(true);
+                    stop.setEnabled(true);
+
+                }
+            });
 
     }
 }

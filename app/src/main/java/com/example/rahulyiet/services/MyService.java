@@ -22,6 +22,7 @@ public class MyService extends Service {
         super.onCreate();
 
         mediaPlayer =MediaPlayer.create(this,R.raw.song);
+
         mediaPlayer.setLooping(true);
 
         Toast.makeText(this,"services created",Toast.LENGTH_SHORT).show();
@@ -30,7 +31,19 @@ public class MyService extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-       mediaPlayer.start();
+        if (intent.getStringExtra("order").equalsIgnoreCase("play")) {
+            mediaPlayer.start();
+            mediaPlayer.setLooping(true);
+        } else if (intent.getStringExtra("order").equals("pause")) {
+            playPosition = mediaPlayer.getCurrentPosition();
+            mediaPlayer.pause();
+        } else if (intent.getStringExtra("order").equalsIgnoreCase("resume")) {
+            mediaPlayer.seekTo(playPosition);
+            mediaPlayer.start();
+
+
+        }
+
         return START_STICKY;
     }
 
