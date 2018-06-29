@@ -9,7 +9,7 @@ import android.widget.Button;
 
 public class MainActivity extends AppCompatActivity {
 
-    Button play,pause,stop,resume;
+    Button play,pause,stop;
     MediaPlayer mediaplayer;
 
     String order =null;
@@ -23,10 +23,9 @@ public class MainActivity extends AppCompatActivity {
         play=findViewById(R.id.play);
         pause=findViewById(R.id.pause);
         stop=findViewById(R.id.stop);
-        resume=findViewById(R.id.resume);
+//
 
-        //Intially disable the button
-
+//        click listener on play button
 
 
         play.setOnClickListener(new View.OnClickListener() {
@@ -38,10 +37,10 @@ public class MainActivity extends AppCompatActivity {
               intent.putExtra("order",order);
               startService(intent);
 
-
+//            Enable and disable the button
 
               play.setEnabled(false);
-              resume.setEnabled(false);
+
               pause.setEnabled(true);
               stop.setEnabled(true);
 
@@ -50,12 +49,16 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        //click listener on stop button
+
          stop.setOnClickListener(new View.OnClickListener() {
              @Override
              public void onClick(View view) {
 
+
+                 //enable and disable the button
                  stop.setEnabled(false);
-                 resume.setEnabled(false);
+
 
                  pause.setEnabled(true);
                  play.setEnabled(true);
@@ -64,6 +67,8 @@ public class MainActivity extends AppCompatActivity {
 
              }
          });
+
+         //click listener on pause button
           pause.setOnClickListener(new View.OnClickListener() {
               @Override
               public void onClick(View view) {
@@ -74,8 +79,8 @@ public class MainActivity extends AppCompatActivity {
 
                   pause.setEnabled(false);
                   stop.setEnabled(true);
-                  play.setEnabled(false);
-                  resume.setEnabled(true);
+//                  play.setEnabled(true);
+//                  resume.setEnabled(true);
 
 
                   play.setEnabled(true);
@@ -84,16 +89,16 @@ public class MainActivity extends AppCompatActivity {
 
           });
 
-            resume.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    resume.setEnabled(false);
-                    pause.setEnabled(true);
-                    play.setEnabled(true);
-                    stop.setEnabled(true);
-
-                }
-            });
+//            resume.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View view) {
+//                    resume.setEnabled(false);
+//                    pause.setEnabled(true);
+//                    play.setEnabled(true);
+//                    stop.setEnabled(true);
+//
+//                }
+//            });
 
     }
 }

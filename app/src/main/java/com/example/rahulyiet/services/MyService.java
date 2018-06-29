@@ -17,6 +17,8 @@ public class MyService extends Service {
         return null;
     }
 
+    //create the mediaplayer
+
     @Override
     public void onCreate() {
         super.onCreate();
@@ -28,6 +30,8 @@ public class MyService extends Service {
         Toast.makeText(this,"services created",Toast.LENGTH_SHORT).show();
 
     }
+
+    //play pause and resume logic of mediaplayer
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
@@ -47,6 +51,7 @@ public class MyService extends Service {
         return START_STICKY;
     }
 
+    //stop function
     @Override
     public void onDestroy() {
         super.onDestroy();
